@@ -1,0 +1,19 @@
+Package: selectmore
+Title: Tidy Data Frame Column Selection Helpers
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Extensions to 'tidyselect' for subsetting data frame columns.
+    Includes tidy verbs for sorting and other operations on columns by
+    name.
+License: MIT + file LICENSE
+Imports: 
+    rlang (>= 1.0.0),
+    tidyselect (>= 1.1.0)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Suggests: 
+    dplyr,
+    stringr
