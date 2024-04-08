@@ -24,8 +24,6 @@ devtools::install_github("yjunechoe/selectmore")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(selectmore)
 library(dplyr, warn.conflicts = FALSE)
@@ -38,6 +36,9 @@ df <- data.frame(
   x_3 = 6,
   dontselect = 0
 )
+df
+#>   x_1 x_2 y_2 y_1 y_3 x_3 dontselect
+#> 1   1   2   3   4   5   6          0
 ```
 
 Baseline comparison with `matches()`:
@@ -57,16 +58,19 @@ df %>%
   select(match_order("(x|y)_(\\d)", c(1, 2)))
 #>   x_1 x_2 x_3 y_1 y_2 y_3
 #> 1   1   2   6   4   3   5
-# Same as above, but sort letters in reverse order
+
+# Similar to above, but sort letters in reverse order
 df %>%
   select(match_order("(x|y)_(\\d)", c(-1, 2)))
 #>   y_1 y_2 y_3 x_1 x_2 x_3
 #> 1   4   3   5   1   2   6
+
 # Order with priority on keeping the numbers (2nd group) close together
 df %>%
   select(match_order("(x|y)_(\\d)", c(2, 1)))
 #>   x_1 y_1 x_2 y_2 x_3 y_3
 #> 1   1   4   2   3   6   5
+
 # Same as above, the 2nd group is "slowest" because it has more categories
 df %>%
   select(match_order("(x|y)_(\\d)", order_by = "slowest"))

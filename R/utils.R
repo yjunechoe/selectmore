@@ -8,3 +8,8 @@ check_select_context <- function(fn) {
     rlang::cnd_signal(cnd)
   }
 }
+
+try_convert <- function(x) {
+  out <- suppressWarnings(as.numeric(x))
+  if (anyNA(out)) x else out
+}

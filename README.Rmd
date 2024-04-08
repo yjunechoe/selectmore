@@ -32,8 +32,6 @@ devtools::install_github("yjunechoe/selectmore")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ```{r example}
 library(selectmore)
 library(dplyr, warn.conflicts = FALSE)
@@ -46,6 +44,7 @@ df <- data.frame(
   x_3 = 6,
   dontselect = 0
 )
+df
 ```
 
 Baseline comparison with `matches()`:
@@ -62,12 +61,15 @@ Match *and* order with `match_order()`:
 # Order with priority on keeping the letters (1st group) close together
 df %>%
   select(match_order("(x|y)_(\\d)", c(1, 2)))
-# Same as above, but sort letters in reverse order
+
+# Similar to above, but sort letters in reverse order
 df %>%
   select(match_order("(x|y)_(\\d)", c(-1, 2)))
+
 # Order with priority on keeping the numbers (2nd group) close together
 df %>%
   select(match_order("(x|y)_(\\d)", c(2, 1)))
+
 # Same as above, the 2nd group is "slowest" because it has more categories
 df %>%
   select(match_order("(x|y)_(\\d)", order_by = "slowest"))
