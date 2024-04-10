@@ -13,3 +13,10 @@ try_convert <- function(x) {
   out <- suppressWarnings(as.numeric(x))
   if (anyNA(out)) x else out
 }
+
+integerly <- function(f) {
+  f <- rlang::as_function(f)
+  function(x) {
+    f(try_convert(x))
+  }
+}

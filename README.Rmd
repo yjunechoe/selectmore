@@ -42,7 +42,7 @@ df <- data.frame(
   y_1 = 4,
   y_3 = 5,
   x_3 = 6,
-  dontselect = 0
+  nomatch = 0
 )
 df
 ```
@@ -55,7 +55,6 @@ df %>%
 ```
 
 Match *and* order with `match_order()`:
-
 
 ```{r}
 # Order with priority on keeping the letters (1st group) close together
@@ -75,3 +74,14 @@ df %>%
   select(match_order("(x|y)_(\\d)", order_by = "slowest"))
 ```
 
+Rename columns using `{unglue}` syntax with `match_rename()`:
+
+```{r}
+df %>% 
+  select(
+    match_order("(x|y)_(\\d)"), # Match columns on pattern and sorts by fastest
+    everything()                # Grab the leftover columns (`nomatch`)
+  ) %>% 
+  # Rename matching columns using `unglue::unglue_sub()` syntax
+  rename(match_rename("{letter}_{number}", list(toupper, ~ .x * 10)))
+```

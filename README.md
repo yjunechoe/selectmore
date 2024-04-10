@@ -34,11 +34,11 @@ df <- data.frame(
   y_1 = 4,
   y_3 = 5,
   x_3 = 6,
-  dontselect = 0
+  nomatch = 0
 )
 df
-#>   x_1 x_2 y_2 y_1 y_3 x_3 dontselect
-#> 1   1   2   3   4   5   6          0
+#>   x_1 x_2 y_2 y_1 y_3 x_3 nomatch
+#> 1   1   2   3   4   5   6       0
 ```
 
 Baseline comparison with `matches()`:
@@ -76,4 +76,18 @@ df %>%
   select(match_order("(x|y)_(\\d)", order_by = "slowest"))
 #>   x_1 x_2 x_3 y_1 y_2 y_3
 #> 1   1   2   6   4   3   5
+```
+
+Rename columns using `{unglue}` syntax with `match_rename()`:
+
+``` r
+df %>% 
+  select(
+    match_order("(x|y)_(\\d)"), # Match columns on pattern and sorts by fastest
+    everything()                # Grab the leftover columns (`nomatch`)
+  ) %>% 
+  # Rename matching columns using `unglue::unglue_sub()` syntax
+  rename(match_rename("{letter}_{number}", list(toupper, ~ .x * 10)))
+#>   X_10 Y_10 X_20 Y_20 X_30 Y_30 nomatch
+#> 1    1    4    2    3    6    5       0
 ```

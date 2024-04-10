@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
-#' df <- data.frame(c = 1, ch = 3, h = 2, dont_pick = 0)
+#' df <- data.frame(c = 1, ch = 3, h = 2, nomatch = 0)
 #'
 #' df %>%
 #'   select(match_str_sort("^[a-z]+$"))
